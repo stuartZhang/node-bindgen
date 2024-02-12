@@ -9,7 +9,7 @@
     "start": "npm run test"
   },
   "keywords": [
-    "node-bindgen",
+    "ohos-node-bindgen",
     "electron"
   ],
   "author": "fluvio.io",

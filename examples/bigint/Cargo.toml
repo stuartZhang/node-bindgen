@@ -1,7 +1,7 @@
 [package]
 name = "nj-example-bigint"
 version = "0.0.0"
-authors = ["fluvio.io"]
+authors = ["Stuart Zhang <stuartpage@qq.com>"]
 edition = "2021"
 publish = false
 
@@ -10,8 +10,8 @@ crate-type = ["cdylib"]
 
 
 [dependencies]
-node-bindgen = { workspace = true}
+ohos-node-bindgen = { workspace = true}
 
 
 [build-dependencies]
-node-bindgen = { path = "../../", default-features = false, features = ["build"] }
+ohos-node-bindgen = { path = "../../", default-features = false, features = ["build"] }

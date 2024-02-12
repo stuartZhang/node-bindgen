@@ -82,7 +82,7 @@ macro_rules! napi_call_result {
             Ok(())
         } else {
             let nj_status: $crate::NapiStatus = status.into();
-            tracing::error!("node-bindgen error {:#?}", nj_status);
+            tracing::error!("ohos-node-bindgen error {:#?}", nj_status);
             Err(NjError::NapiCall(nj_status))
         }
     }};

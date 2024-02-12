@@ -26,7 +26,7 @@ pub struct ConfigLib {
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Dependencies {
-    #[serde(rename = "node-bindgen")]
+    #[serde(rename = "ohos-node-bindgen")]
     node_bindgen: Option<Dependency>,
 }
 

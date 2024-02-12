@@ -1,2 +1,2 @@
-# Procedure macro for node-bindgen
+# Procedure macro for ohos-node-bindgen
 

@@ -1,10 +1,10 @@
 [package]
 name = "nj-derive"
 version = "3.4.2"
-authors = ["fluvio.io"]
+authors = ["Stuart Zhang <stuartpage@qq.com>"]
 edition = "2018"
-description = "procedure macro for node-bindgen"
-repository = "https://github.com/infinyon/node-bindgen"
+description = "procedure macro for ohos-node-bindgen"
+repository = "https://github.com/stuartZhang/node-bindgen"
 readme = "README.md"
 license = "Apache-2.0"
 
@@ -20,5 +20,5 @@ Inflector = "0.11.4"
 
 [dev-dependencies]
 trybuild = { git = "https://github.com/infinyon/trybuild", branch = "check_option" }
-node-bindgen = { path = ".." }
+ohos-node-bindgen = { path = ".." }
 fluvio-future = { version = "0.6.0", features = ["timer"] }

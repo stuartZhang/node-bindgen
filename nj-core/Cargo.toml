@@ -1,10 +1,10 @@
 [package]
 name = "nj-core"
 version = "6.0.1"
-authors = ["fluvio.io"]
+authors = ["Stuart Zhang <stuartpage@qq.com>"]
 edition = "2021"
 description = "high level wrapper for Node N-API"
-repository = "https://github.com/infinyon/node-bindgen"
+repository = "https://github.com/stuartZhang/node-bindgen"
 readme = "README.md"
 license = "Apache-2.0"
 

@@ -1,10 +1,10 @@
 [package]
 name = "nj-build"
 version = "0.3.0"
-authors = ["fluvio.io"]
+authors = ["Stuart Zhang <stuartpage@qq.com>"]
 edition = "2021"
-description = "build configuration for node-bindgen"
-repository = "https://github.com/infinyon/node-bindgen"
+description = "build configuration for ohos-node-bindgen"
+repository = "https://github.com/stuartZhang/node-bindgen"
 license = "Apache-2.0"
 
 [target.'cfg(windows)'.dependencies]

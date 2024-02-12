@@ -1,10 +1,10 @@
 [package]
 name = "nj-cli"
 version = "0.4.3"
-authors = ["fluvio.io"]
+authors = ["Stuart Zhang <stuartpage@qq.com>"]
 edition = "2021"
-description = "build tool for node-bindgen"
-repository = "https://github.com/infinyon/node-bindgen"
+description = "build tool for ohos-node-bindgen"
+repository = "https://github.com/stuartZhang/node-bindgen"
 license = "Apache-2.0"
 
 [dependencies]

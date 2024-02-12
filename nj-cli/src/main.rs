@@ -20,7 +20,7 @@ use cargo_metadata::Target;
 #[structopt(
     about = "Nj Command Line Interface",
     author = "Fluvio",
-    name = "node-bindgen cli"
+    name = "ohos-node-bindgen cli"
 )]
 enum Opt {
     #[structopt(name = "build")]

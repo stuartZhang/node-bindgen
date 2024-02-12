@@ -4,7 +4,7 @@ use tracing::trace;
 
 use crate::TryIntoJs;
 use crate::JSValue;
-use crate::sys::napi_value;
+use crate::sys::{napi_value, size_t};
 use crate::val::JsEnv;
 use crate::NjError;
 
@@ -16,7 +16,7 @@ impl<'a> JSValue<'a> for BigInt {
         trace!("Converting JS BigInt to Rust!");
 
         env.assert_type(js_value, crate::sys::napi_valuetype_napi_bigint)?;
-        let mut word_count = 0_usize;
+        let word_count = 0_usize;
 
         // https://nodejs.org/api/n-api.html#n_api_napi_get_value_bigint_words
         // Frist call is to figure out how long of a vec to make.
@@ -24,7 +24,7 @@ impl<'a> JSValue<'a> for BigInt {
             env.inner(),
             js_value,
             ptr::null_mut(),
-            &mut word_count,
+            &mut (word_count as size_t),
             ptr::null_mut(),
         ))?;
 
@@ -36,7 +36,7 @@ impl<'a> JSValue<'a> for BigInt {
             env.inner(),
             js_value,
             &mut sign,
-            &mut word_count,
+            &mut (word_count as size_t),
             napi_buffer.as_mut_ptr(),
         ))?;
 
@@ -107,7 +107,7 @@ impl TryIntoJs for BigInt {
         crate::napi_call_result!(crate::sys::napi_create_bigint_words(
             env.inner(),
             sign,
-            word_count,
+            word_count as size_t,
             words.as_ptr(),
             &mut napi_buffer
         ))?;

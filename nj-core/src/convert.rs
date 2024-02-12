@@ -2,7 +2,7 @@ use std::ptr;
 
 use tracing::debug;
 
-use crate::sys::napi_value;
+use crate::sys::{napi_value, size_t};
 use crate::val::JsEnv;
 use crate::NjError;
 use crate::napi_call_result;
@@ -328,21 +328,21 @@ impl JSValue<'_> for String {
             js_value,
             ptr::null_mut(),
             0,
-            &mut string_size
+            &mut (string_size as size_t)
         ))?;
 
         string_size += 1;
 
         let chars_vec: Vec<u8> = vec![0; string_size];
         let mut chars: Box<[u8]> = chars_vec.into_boxed_slice();
-        let mut read_size: usize = 0;
+        let read_size: usize = 0;
 
         napi_call_result!(napi_get_value_string_utf8(
             env.inner(),
             js_value,
             chars.as_mut_ptr() as *mut ::std::os::raw::c_char,
-            string_size,
-            &mut read_size
+            string_size as size_t,
+            &mut (read_size as size_t)
         ))?;
 
         let my_chars: Vec<u8> = chars[0..read_size].into();
@@ -356,14 +356,14 @@ impl<'a> JSValue<'a> for &'a str {
     fn convert_to_rust(env: &'a JsEnv, js_value: napi_value) -> Result<Self, NjError> {
         use crate::sys::napi_get_buffer_info;
 
-        let mut len: usize = 0;
+        let len: usize = 0;
         let mut data = ptr::null_mut();
 
         napi_call_result!(napi_get_buffer_info(
             env.inner(),
             js_value,
             &mut data,
-            &mut len
+            &mut (len as size_t)
         ))?;
 
         unsafe {

@@ -5,7 +5,7 @@ use tracing::trace;
 
 use crate::TryIntoJs;
 use crate::JSValue;
-use crate::sys::{napi_value, napi_ref, napi_env};
+use crate::sys::{napi_value, napi_ref, napi_env, size_t};
 use crate::val::JsEnv;
 use crate::NjError;
 
@@ -59,7 +59,7 @@ impl TryIntoJs for ArrayBuffer {
         crate::napi_call_result!(crate::sys::napi_create_external_arraybuffer(
             js_env.inner(),
             data_buffer as *mut core::ffi::c_void,
-            len,
+            len as size_t,
             Some(Self::finalize_buffer),
             data_box_ptr,
             &mut napi_buffer

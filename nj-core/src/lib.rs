@@ -36,10 +36,24 @@ pub mod sys {
     ) -> napi_value;
     #[allow(non_camel_case_types)]
     pub type napi_finalize_raw = unsafe extern "C" fn(env: napi_env, finalize_data: raw_pt, finalize_hint: raw_pt);
-    #[cfg(any(all(target_os = "windows", target_arch = "x86_64"), target_arch = "arm"))]
+    #[cfg(any(
+        target_os = "windows",
+        all(
+            target_os = "linux", 
+            target_env="ohos", 
+            target_arch = "arm"
+        )
+    ))]
     #[allow(non_camel_case_types)]
     pub type size_t = u32;
-    #[cfg(any(all(target_os = "linux", target_arch = "x86_64"), target_arch = "aarch64"))]
+    #[cfg(all(
+        target_os = "linux", 
+        target_env="ohos", 
+        any(
+            target_arch = "x86_64", 
+            target_arch = "aarch64"
+        )
+    ))]
     #[allow(non_camel_case_types)]
     pub type size_t = u64;
 }

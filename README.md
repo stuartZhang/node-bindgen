@@ -42,12 +42,12 @@
 
 在原作者伟大作品的基础上，我做了三项工作使`node-bindgen`支持华为鸿蒙`ArkTS N-API`开发
 
-1. 将原封装了[nodejs N-API](https://nodejs.org/dist/latest/docs/api/addons.html)的内部子工程`nj-sys`·替换为·包装了【鸿蒙`ArkTS N-API`】的外部依赖项[oh-napi-sys](https://gitee.com/zr233/oh-napi)。
+1. 将封装了[nodejs N-API](https://nodejs.org/dist/latest/docs/api/addons.html)的内部子工程`nj-sys`·替换为·包装了【鸿蒙`ArkTS N-API`】的外部依赖项[oh-napi-sys](https://gitee.com/zr233/oh-napi)。
    1. 一方面，`node-bindgen`原作者的代码设计非常科学合理，所以对核心模块`*-sys crate`的替换工作很省心。
    2. 另一方面，【鸿蒙`ArkTS N-API`】与`nodejs N-API`的相似度极高。所以，模块替换后的适配工作量少之又少。
 2. 添加【编译条件】 — 这算是一处适配点
-   1. 原因：【`C`无符号长整·数据类型`unsigned long`】在鸿蒙`armv7`架构上是`32bit`，而在鸿蒙`aarch64`与`x86_64`架构上却是`64bit`。所以，若既不搞【条件编译】又不预备多套代码，那么`rustc`就会交叉编译失败。感谢`Rust`的【条件编译】语言支持，让`Cpp`开发都哭去吧！
-   2. 打广告了：在该基建之上做鸿蒙`ArkTS NAPI`开发的中国同胞们就不用再分心考虑这类【架构差异】的技术细节了。这些破事实在太糟心！
+   1. 原因：【`C`无符号长整类型`unsigned long`】在鸿蒙`armv7`架构上是`32bit`，而在鸿蒙`aarch64`与`x86_64`架构上却是`64bit`。所以，若既不搞【条件编译】又不预备多套代码，那么`rustc`就会交叉编译失败。感谢`Rust`的【条件编译】语言支持，让`Cpp`开发都哭去吧！
+   2. 打广告了：在该基建之上做鸿蒙`ArkTS N-API`开发的中国同胞们就不用再分心考虑这类【架构差异】的技术细节了。这些破事实在太糟心！
 3. 修改包名从`node-bindgen`至`ohos-node-bindgen`。
 
 就目前而言，【鸿蒙`ArkTS N-API`】与`nodejs N-API`大约是`95%`相似。但是，我相信随着【鸿蒙操作系统】的后续发展，`ArkTS N-API`会引入越来越多与外国同类产品（比如，`nodejs / Deno`）不同的内容。
@@ -56,7 +56,7 @@
 
 新/旧用法差异不在代码调用，而全部集中于`Cargo.toml`工程配置中
 
-1. 不再需要向`[build-dependencies]`配置表添加`node-bindgen = { version = "6.0", default-features = false, features = ["build"] }`依赖项，因为【编译时链接】已被完全委托给外部依赖项[oh-napi-sys](https://gitee.com/zr233/oh-napi)完成了。
+1. 不再需要向`[build-dependencies]`配置表添加`node-bindgen = { version = "6.0", default-features = false, features = ["build"] }`依赖项了，因为【编译时链接】已完全委托给外部依赖项[oh-napi-sys](https://gitee.com/zr233/oh-napi)完成了。
 2. 输出链接库的编码格式不再是`cdylib`，而是`dylib`。即，
 
     ```toml

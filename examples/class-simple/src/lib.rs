@@ -1,11 +1,11 @@
-use node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::derive::node_bindgen;
 
 struct MyObject {
     val: f64,
     val2: i64,
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 impl MyObject {
     #[node_bindgen(constructor)]
     fn new(val: f64, val2: i64) -> Self {
@@ -16,7 +16,7 @@ impl MyObject {
     /// rust values are automatically converted into equivalent JS value
     /// method name are generated from rust method name
     /// Js:  let y = obj.plusOne();
-    #[node_bindgen]
+    #[ohos_node_bindgen]
     fn plus_one(&self) -> f64 {
         self.val + 1.0
     }
@@ -54,7 +54,7 @@ impl MyObject {
         self.val = val;
     }
 
-    #[node_bindgen]
+    #[ohos_node_bindgen]
     fn change_value(&mut self, val: f64) {
         self.val = val;
     }

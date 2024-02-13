@@ -44,19 +44,19 @@ fn raw_napi_function_template(
 ) -> TokenStream {
     quote! {
 
-        extern "C" fn #ident_n_api_fn(env: node_bindgen::sys::napi_env,cb_info: node_bindgen::sys::napi_callback_info) -> node_bindgen::sys::napi_value
+        extern "C" fn #ident_n_api_fn(env: ohos_node_bindgen::sys::napi_env,cb_info: ohos_node_bindgen::sys::napi_callback_info) -> ohos_node_bindgen::sys::napi_value
         {
-            use node_bindgen::core::TryIntoJs;
-            use node_bindgen::core::IntoJs;
-            use node_bindgen::core::val::JsCallbackFunction;
+            use ohos_node_bindgen::core::TryIntoJs;
+            use ohos_node_bindgen::core::IntoJs;
+            use ohos_node_bindgen::core::val::JsCallbackFunction;
 
-            node_bindgen::core::log::debug!( napi_fn = stringify!(#ident_n_api_fn),"invoking napi function");
+            ohos_node_bindgen::core::log::debug!( napi_fn = stringify!(#ident_n_api_fn),"invoking napi function");
 
             #input_fn
 
             #(#rust_args_struct)*
 
-            let js_env = node_bindgen::core::val::JsEnv::new(env);
+            let js_env = ohos_node_bindgen::core::val::JsEnv::new(env);
 
             #rust_invocation
         }

@@ -1,7 +1,7 @@
-use node_bindgen::derive::node_bindgen;
-use node_bindgen::core::TryIntoJs;
+use ohos_node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::core::TryIntoJs;
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 enum TestEnum {
     Something(usize),
     Else {
@@ -10,7 +10,7 @@ enum TestEnum {
     UnitVariant
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 enum Generic<T: TryIntoJs> {
     Container(T)
 }

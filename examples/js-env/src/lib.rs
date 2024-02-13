@@ -1,11 +1,11 @@
-use node_bindgen::derive::node_bindgen;
-use node_bindgen::sys::napi_value;
-use node_bindgen::core::NjError;
-use node_bindgen::core::val::JsEnv;
+use ohos_node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::sys::napi_value;
+use ohos_node_bindgen::core::NjError;
+use ohos_node_bindgen::core::val::JsEnv;
 
 /// example where we receive napi callback manually
 /// in order to do that, we use TryIntoJs trait
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn double(arg: f64) -> Result<EnvInterceptor, NjError> {
     println!("arg: {arg}");
     Ok(EnvInterceptor(arg))
@@ -13,7 +13,7 @@ fn double(arg: f64) -> Result<EnvInterceptor, NjError> {
 
 struct EnvInterceptor(f64);
 
-use node_bindgen::core::TryIntoJs;
+use ohos_node_bindgen::core::TryIntoJs;
 
 impl TryIntoJs for EnvInterceptor {
     fn try_to_js(self, js_env: &JsEnv) -> Result<napi_value, NjError> {

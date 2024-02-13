@@ -2,12 +2,12 @@ use std::time::Duration;
 
 use fluvio_future::timer::sleep;
 
-use node_bindgen::sys::napi_value;
-use node_bindgen::core::NjError;
-use node_bindgen::core::val::JsObject;
-use node_bindgen::core::val::JsEnv;
-use node_bindgen::core::TryIntoJs;
-use node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::sys::napi_value;
+use ohos_node_bindgen::core::NjError;
+use ohos_node_bindgen::core::val::JsObject;
+use ohos_node_bindgen::core::val::JsEnv;
+use ohos_node_bindgen::core::TryIntoJs;
+use ohos_node_bindgen::derive::node_bindgen;
 
 struct MyJson {
     val: f64,
@@ -29,7 +29,7 @@ struct MyObject {
     val: f64,
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 impl MyObject {
     #[node_bindgen(constructor)]
     fn new(val: f64) -> Self {
@@ -37,7 +37,7 @@ impl MyObject {
     }
 
     /// promise which result in primitive type
-    #[node_bindgen]
+    #[ohos_node_bindgen]
     async fn plus_two(&self, arg: f64) -> f64 {
         println!("sleeping");
         sleep(Duration::from_secs(1)).await;
@@ -49,7 +49,7 @@ impl MyObject {
     /// promise where result is arbitrary struct.
     /// returning struct must implement TryIntoJs
     /// which can create new JS instance
-    #[node_bindgen]
+    #[ohos_node_bindgen]
     async fn multiply2(&self, arg: f64) -> MyObjectConstructor {
         println!("sleeping");
         sleep(Duration::from_secs(1)).await;
@@ -59,7 +59,7 @@ impl MyObject {
     }
 
     /// loop and emit event
-    #[node_bindgen]
+    #[ohos_node_bindgen]
     async fn sleep<F: Fn(String)>(&self, cb: F) {
         println!("sleeping");
         sleep(Duration::from_secs(1)).await;

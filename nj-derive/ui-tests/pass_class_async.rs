@@ -3,7 +3,7 @@ use std::io::Error as IoError;
 
 use fluvio_future::timer::sleep;
 
-use node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::derive::node_bindgen;
 
 
 struct MyObject {
@@ -11,7 +11,7 @@ struct MyObject {
 }
 
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 impl MyObject {
 
 
@@ -21,7 +21,7 @@ impl MyObject {
     }
 
     /// loop and emit event
-    #[node_bindgen]
+    #[ohos_node_bindgen]
     async fn sleep<F: Fn(String)>(&self,cb: F)  {
 
         println!("sleeping");

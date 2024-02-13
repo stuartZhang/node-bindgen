@@ -1,10 +1,10 @@
 use std::time::Duration;
 
 use fluvio_future::timer::sleep;
-use node_bindgen::derive::node_bindgen;
-use node_bindgen::core::NjError;
+use ohos_node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::core::NjError;
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 async fn hello(arg: f64) -> f64 {
     println!("sleeping");
     sleep(Duration::from_secs(1)).await;
@@ -12,7 +12,7 @@ async fn hello(arg: f64) -> f64 {
     arg + 10.0
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 async fn hello2(arg: f64) -> Result<f64, NjError> {
     println!("sleeping");
     sleep(Duration::from_secs(1)).await;
@@ -26,7 +26,7 @@ async fn hello2(arg: f64) -> Result<f64, NjError> {
 }
 
 /// just sleep
-#[node_bindgen]
+#[ohos_node_bindgen]
 async fn just_sleep(seconds: i32) {
     println!("sleeping");
     sleep(Duration::from_secs(seconds as u64)).await;
@@ -38,7 +38,7 @@ struct NativeStore {
     val: String,
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 impl NativeStore {
     #[node_bindgen(constructor)]
     fn new() -> Self {
@@ -47,13 +47,13 @@ impl NativeStore {
         }
     }
 
-    #[node_bindgen]
+    #[ohos_node_bindgen]
     async fn get(&self) -> String {
         sleep(std::time::Duration::from_micros(1)).await;
         self.val.clone()
     }
 
-    #[node_bindgen]
+    #[ohos_node_bindgen]
     async fn put(&mut self, value: String) {
         sleep(std::time::Duration::from_millis(500)).await;
         self.val = value;

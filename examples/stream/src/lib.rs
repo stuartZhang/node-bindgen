@@ -5,14 +5,14 @@ use futures_lite::stream;
 use futures_lite::stream::StreamExt;
 
 use fluvio_future::timer::sleep;
-use node_bindgen::core::NjError;
-use node_bindgen::derive::node_bindgen;
-use node_bindgen::core::stream::NjStream;
-use node_bindgen::core::stream::JsThen;
+use ohos_node_bindgen::core::NjError;
+use ohos_node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::core::stream::NjStream;
+use ohos_node_bindgen::core::stream::JsThen;
 
 struct StreamFactory {}
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 impl StreamFactory {
     #[node_bindgen(constructor)]
     pub fn new() -> Self {

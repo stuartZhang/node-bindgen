@@ -66,11 +66,11 @@ fn generate_struct_try_into_js(
 
             quote! {
                 #impl_signature {
-                    fn try_to_js(self, #js_env: &node_bindgen::core::val::JsEnv) ->
-                        Result<node_bindgen::core::sys::napi_value,
-                            node_bindgen::core::NjError>
+                    fn try_to_js(self, #js_env: &ohos_node_bindgen::core::val::JsEnv) ->
+                        Result<ohos_node_bindgen::core::sys::napi_value,
+                            ohos_node_bindgen::core::NjError>
                     {
-                        use node_bindgen::core::{
+                        use ohos_node_bindgen::core::{
                             TryIntoJs,
                             val::JsObject
                         };
@@ -93,11 +93,11 @@ fn generate_struct_try_into_js(
 
             quote! {
                 #impl_signature {
-                    fn try_to_js(self, #js_env: &node_bindgen::core::val::JsEnv) ->
-                        Result<node_bindgen::core::sys::napi_value,
-                            node_bindgen::core::NjError>
+                    fn try_to_js(self, #js_env: &ohos_node_bindgen::core::val::JsEnv) ->
+                        Result<ohos_node_bindgen::core::sys::napi_value,
+                            ohos_node_bindgen::core::NjError>
                     {
-                        use node_bindgen::core::{
+                        use ohos_node_bindgen::core::{
                             TryIntoJs
                         };
 
@@ -113,9 +113,9 @@ fn generate_struct_try_into_js(
         MyFields::Unit => {
             quote! {
                 #impl_signature {
-                    fn try_to_js(self, #js_env: &node_bindgen::core::val::JsEnv) ->
-                        Result<node_bindgen::core::sys::napi_value,
-                            node_bindgen::core::NjError>
+                    fn try_to_js(self, #js_env: &ohos_node_bindgen::core::val::JsEnv) ->
+                        Result<ohos_node_bindgen::core::sys::napi_value,
+                            ohos_node_bindgen::core::NjError>
                     {
                         #js_env.get_null()
                     }
@@ -140,11 +140,11 @@ fn generate_enum_try_into_js(
 
     quote! {
         #impl_signature {
-            fn try_to_js(self, #js_env: &node_bindgen::core::val::JsEnv) ->
-                Result<node_bindgen::core::sys::napi_value,
-                       node_bindgen::core::NjError>
+            fn try_to_js(self, #js_env: &ohos_node_bindgen::core::val::JsEnv) ->
+                Result<ohos_node_bindgen::core::sys::napi_value,
+                    ohos_node_bindgen::core::NjError>
             {
-                use node_bindgen::core::{
+                use ohos_node_bindgen::core::{
                     TryIntoJs,
                     val::JsObject
                 };
@@ -279,7 +279,7 @@ fn generate_impl_signature<'a>(name: &'a Ident, generics: &'a MyGenerics<'a>) ->
     };
 
     quote! {
-        impl <#(#generic_params),*> node_bindgen::core::TryIntoJs for
+        impl <#(#generic_params),*> ohos_node_bindgen::core::TryIntoJs for
                 #name<#(#generics_no_bounds),*> #where_clause
     }
 }

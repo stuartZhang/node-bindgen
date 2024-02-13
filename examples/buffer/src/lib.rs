@@ -1,8 +1,8 @@
 use serde::Serialize;
 
-use node_bindgen::derive::node_bindgen;
-use node_bindgen::core::buffer::{ArrayBuffer, JSArrayBuffer};
-use node_bindgen::core::NjError;
+use ohos_node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::core::buffer::{ArrayBuffer, JSArrayBuffer};
+use ohos_node_bindgen::core::NjError;
 
 #[derive(Serialize)]
 struct MyStruct {
@@ -11,7 +11,7 @@ struct MyStruct {
 }
 
 /// byte array buffer from json bytes
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn test(b: i32) -> Result<ArrayBuffer, NjError> {
     let my_struct = MyStruct {
         a: "b".to_string(),
@@ -24,10 +24,10 @@ fn test(b: i32) -> Result<ArrayBuffer, NjError> {
     Ok(ArrayBuffer::new(json_string))
 }
 
-use node_bindgen::core::val::JsEnv;
-use node_bindgen::core::TryIntoJs;
-use node_bindgen::core::val::JsObject;
-use node_bindgen::sys::napi_value;
+use ohos_node_bindgen::core::val::JsEnv;
+use ohos_node_bindgen::core::TryIntoJs;
+use ohos_node_bindgen::core::val::JsObject;
+use ohos_node_bindgen::sys::napi_value;
 
 struct Record {
     buffer: ArrayBuffer,
@@ -48,7 +48,7 @@ impl TryIntoJs for Record {
 }
 
 /// create byte array and wrap in side another json obj
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn test2(b: i32) -> Result<Record, NjError> {
     let my_struct = MyStruct {
         a: "b".to_string(),
@@ -64,13 +64,13 @@ fn test2(b: i32) -> Result<Record, NjError> {
     })
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn test3(data: JSArrayBuffer) -> Result<String, NjError> {
     let message = String::from_utf8(data.to_vec())?;
     Ok(format!("reply {message}"))
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn test4(first: JSArrayBuffer, second: JSArrayBuffer) -> Result<String, NjError> {
     let message1 = String::from_utf8(first.to_vec())?;
     let message2 = String::from_utf8(second.to_vec())?;

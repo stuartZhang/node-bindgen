@@ -180,7 +180,7 @@ impl FunctionAttributes {
 
         match attribute.parse_meta()? {
             Meta::Path(_) => {
-                // ignore node_bindgen which already know exists
+                // ignore ohos_node_bindgen which already know exists
                 Ok(FunctionAttributes::default())
             }
             Meta::NameValue(n) => Err(Error::new(n.span(), "invalid attribute syntax")),

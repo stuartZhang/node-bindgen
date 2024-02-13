@@ -1,14 +1,14 @@
 use std::io::Error as IoError;
 
-use node_bindgen::sys::napi_value;
-use node_bindgen::core::JSClass;
-use node_bindgen::core::NjError;
-use node_bindgen::core::val::JsEnv;
-use node_bindgen::core::TryIntoJs;
-use node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::sys::napi_value;
+use ohos_node_bindgen::core::JSClass;
+use ohos_node_bindgen::core::NjError;
+use ohos_node_bindgen::core::val::JsEnv;
+use ohos_node_bindgen::core::TryIntoJs;
+use ohos_node_bindgen::derive::node_bindgen;
 
 /// simple wrapper
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn simple(val: f64) -> Result<TestObject, IoError> {
     Ok(TestObject { val: Some(val) })
 }
@@ -23,7 +23,7 @@ impl TryIntoJs for TestObject {
 }
 
 /// indirect wrapper
-#[node_bindgen]
+#[ohos_node_bindgen]
 async fn create(val: f64) -> Result<MyObjectWrapper, IoError> {
     Ok(MyObjectWrapper { val })
 }
@@ -45,7 +45,7 @@ struct TestObject {
     val: Option<f64>,
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 impl TestObject {
     #[node_bindgen(constructor)]
     fn new() -> Self {
@@ -62,7 +62,7 @@ impl TestObject {
         self.val.unwrap_or(0.0)
     }
 
-    #[node_bindgen]
+    #[ohos_node_bindgen]
     fn test(&self) -> f64 {
         0.0
     }

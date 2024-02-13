@@ -94,10 +94,10 @@ impl<'a> JSValue<'a> for &'a [u8] {
 /// In this example, JS String is passed as array buffer.  Rust code convert to String and concate with prefix message.
 ///  
 /// ```no_run
-/// use node_bindgen::derive::node_bindgen;
-/// use node_bindgen::core::buffer::JSArrayBuffer;
+/// use ohos_node_bindgen::derive::node_bindgen;
+/// use ohos_node_bindgen::core::buffer::JSArrayBuffer;
 ///
-/// #[node_bindgen]
+/// #[ohos_node_bindgen]
 /// fn hello(data: JSArrayBuffer) -> Result<String, NjError> {
 ///   let message = String::from_utf8(data.to_vec())?;
 ///    Ok(format!("reply {}", message))

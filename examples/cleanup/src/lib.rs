@@ -1,11 +1,11 @@
 use std::ptr;
 
-use node_bindgen::derive::node_bindgen;
-use node_bindgen::core::val::JsEnv;
-use node_bindgen::core::NjError;
+use ohos_node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::core::val::JsEnv;
+use ohos_node_bindgen::core::NjError;
 
 /// initialize env hook up
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn init(env: JsEnv) -> Result<(), NjError> {
     unsafe { env.add_env_clean_up_hook(Some(my_cleanup), ptr::null_mut())? };
     println!("init");

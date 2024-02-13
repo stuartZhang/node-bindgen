@@ -1,3 +1,3 @@
 fn main() {
-    node_bindgen::build::configure();
+    ohos_node_bindgen::build::configure();
 }

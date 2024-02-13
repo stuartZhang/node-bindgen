@@ -60,7 +60,7 @@ impl MethodUtil for ImplItemMethod {
             attr.path
                 .segments
                 .iter()
-                .any(|seg| seg.ident == "node_bindgen")
+                .any(|seg| seg.ident == "ohos_node_bindgen")
         })
     }
 }

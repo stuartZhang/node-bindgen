@@ -31,7 +31,7 @@ use proc_macro::TokenStream;
 /// }
 /// ```
 #[proc_macro_attribute]
-pub fn node_bindgen(args: TokenStream, item: TokenStream) -> TokenStream {
+pub fn ohos_node_bindgen(args: TokenStream, item: TokenStream) -> TokenStream {
     use syn::AttributeArgs;
 
     use ast::FunctionAttributes;

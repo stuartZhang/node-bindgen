@@ -1,39 +1,39 @@
-use node_bindgen::derive::node_bindgen;
-use node_bindgen::sys::napi_value;
-use node_bindgen::core::NjError;
-use node_bindgen::core::val::JsEnv;
-use node_bindgen::core::TryIntoJs;
-use node_bindgen::core::val::JsObject;
+use ohos_node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::sys::napi_value;
+use ohos_node_bindgen::core::NjError;
+use ohos_node_bindgen::core::val::JsEnv;
+use ohos_node_bindgen::core::TryIntoJs;
+use ohos_node_bindgen::core::val::JsObject;
 
 use serde_json::value::Value;
 use serde_json::map::Map;
 
 // The recommended way of transforming to json
-#[node_bindgen]
+#[ohos_node_bindgen]
 struct StandardJson {
     some_name: String,
     a_number: i64,
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 struct Outer {
     val: Inner,
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 struct Inner(String);
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 struct UnitStruct;
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 enum ErrorType {
     WithMessage(String, usize),
     WithFields { val: usize },
     UnitError,
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 struct WithSerdeJson {
     val: Value,
 }
@@ -56,12 +56,12 @@ impl TryIntoJs for CustomJson {
 }
 
 /// return json object
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn custom_json() -> CustomJson {
     CustomJson { val: 10.0 }
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn standard_json() -> StandardJson {
     StandardJson {
         some_name: "John".to_owned(),
@@ -69,44 +69,44 @@ fn standard_json() -> StandardJson {
     }
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn multilevel_json() -> Outer {
     Outer {
         val: Inner("hello".to_owned()),
     }
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn unit_struct() -> UnitStruct {
     UnitStruct
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn with_message() -> ErrorType {
     ErrorType::WithMessage("test".to_owned(), 321)
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn with_fields() -> ErrorType {
     ErrorType::WithFields { val: 123 }
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn with_unit() -> ErrorType {
     ErrorType::UnitError
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn failed_result_with_fields() -> Result<(), ErrorType> {
     Err(ErrorType::WithFields { val: 987 })
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 async fn async_result_failed_unit() -> Result<(), ErrorType> {
     Err(ErrorType::UnitError)
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn with_serde_json() -> WithSerdeJson {
     let mut map = Map::new();
     map.insert("first".to_owned(), Value::Bool(true));

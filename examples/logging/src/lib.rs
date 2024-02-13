@@ -1,7 +1,7 @@
 use tracing::{info, warn};
 
-use node_bindgen::derive::node_bindgen;
-use node_bindgen::init::node_bindgen_init_once;
+use ohos_node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::init::node_bindgen_init_once;
 
 
 #[node_bindgen_init_once]

@@ -15,11 +15,11 @@ pub fn generate_property_code(ctx: &FnGeneratorCtx) -> TokenStream {
     let property_name_literal = ctx.property_name();
 
     quote! {
-        #[node_bindgen::core::ctor]
+        #[ohos_node_bindgen::core::ctor]
         fn #ident_register_fn() {
 
-            let property = node_bindgen::core::Property::new(#property_name_literal).method(#ident_n_api_fn);
-            node_bindgen::core::submit_property(property);
+            let property = ohos_node_bindgen::core::Property::new(#property_name_literal).method(#ident_n_api_fn);
+            ohos_node_bindgen::core::submit_property(property);
         }
 
     }

@@ -1,5 +1,5 @@
 
-use node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::derive::node_bindgen;
 
 struct Inner;
 
@@ -7,7 +7,7 @@ struct NamedScopeObject<'a>{
     val: &'a Option<Inner>,
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 impl NamedScopeObject<'_> {
     #[node_bindgen(constructor)]
     fn new() -> Self {

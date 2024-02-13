@@ -1,4 +1,4 @@
-use node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::derive::node_bindgen;
  
 /// name2 is not valid attribute
 #[node_bindgen(name2="hello")]

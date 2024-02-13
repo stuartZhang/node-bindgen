@@ -1,9 +1,9 @@
-use node_bindgen::derive::node_bindgen;
-use node_bindgen::core::val::JsEnv;
-use node_bindgen::core::val::JsObject;
-use node_bindgen::core::JSValue;
-use node_bindgen::sys::napi_value;
-use node_bindgen::core::NjError;
+use ohos_node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::core::val::JsEnv;
+use ohos_node_bindgen::core::val::JsObject;
+use ohos_node_bindgen::core::JSValue;
+use ohos_node_bindgen::sys::napi_value;
+use ohos_node_bindgen::core::NjError;
 
 #[derive(Default)]
 struct Json {
@@ -41,7 +41,7 @@ impl JSValue<'_> for MyParam {
 }
 
 /// accept argument either int or json
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn add(arg_opt: Option<MyParam>) -> i32 {
     if let Some(arg) = arg_opt {
         match arg {

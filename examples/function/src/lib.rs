@@ -1,18 +1,18 @@
-use node_bindgen::derive::node_bindgen;
-use node_bindgen::core::NjError;
+use ohos_node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::core::NjError;
 
 #[node_bindgen()]
 fn hello(count: i32) -> String {
     format!("hello world {count}")
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn sum(first: i32, second: i32) -> i32 {
     first + second
 }
 
 // throw error if first > second, otherwise return sum
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn min_max(first: i32, second: i32) -> Result<i32, NjError> {
     if first > second {
         Err(NjError::Other("first arg is greater".to_owned()))
@@ -45,7 +45,7 @@ fn string(first: String, second_arg: Option<String>) -> String {
     }
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn give_null(null: bool) -> Option<bool> {
     if null {
         None
@@ -54,7 +54,7 @@ fn give_null(null: bool) -> Option<bool> {
     }
 }
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 fn give_str(s: &str) -> String {
     s.to_string()
 }

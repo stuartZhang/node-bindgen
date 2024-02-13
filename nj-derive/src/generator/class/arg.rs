@@ -31,9 +31,9 @@ pub fn generate_class_arg(method: Option<&Method>, class: &Class) -> TokenStream
                 }
             }
 
-            impl node_bindgen::core::TryIntoJs for #construct_name {
+            impl ohos_node_bindgen::core::TryIntoJs for #construct_name {
 
-                fn try_to_js(self, js_env: &node_bindgen::core::val::JsEnv) -> Result<node_bindgen::sys::napi_value,node_bindgen::core::NjError> {
+                fn try_to_js(self, js_env: &ohos_node_bindgen::core::val::JsEnv) -> Result<ohos_node_bindgen::sys::napi_value, ohos_node_bindgen::core::NjError> {
 
                     #constr_conversion
                     let new_instance = #class_name::new_instance(js_env,vec![#invocation])?;

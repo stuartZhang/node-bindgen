@@ -1,4 +1,4 @@
-use node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::derive::node_bindgen;
 
  
 struct MyObject {
@@ -6,7 +6,7 @@ struct MyObject {
 }
 
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 impl MyObject {
 
     
@@ -15,7 +15,7 @@ impl MyObject {
         Self { val }
     }
     
-    #[node_bindgen]
+    #[ohos_node_bindgen]
     fn twice(&self) -> f64 {
         self.val * 2.0
     }

@@ -35,9 +35,9 @@ pub fn class_constructor(method: Option<&Method>) -> TokenStream {
 
     quote! {
         fn create_from_js(
-            js_env: &node_bindgen::core::val::JsEnv,
-            cb_info: node_bindgen::sys::napi_callback_info) ->
-         Result<(Self,node_bindgen::core::val::JsCallback),node_bindgen::core::NjError> {
+            js_env: &ohos_node_bindgen::core::val::JsEnv,
+            cb_info: ohos_node_bindgen::sys::napi_callback_info) ->
+         Result<(Self, ohos_node_bindgen::core::val::JsCallback), ohos_node_bindgen::core::NjError> {
 
             #expansion
         }

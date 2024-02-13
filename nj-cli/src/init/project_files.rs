@@ -27,7 +27,7 @@ pub struct ConfigLib {
 #[derive(Debug, Clone, Deserialize, Serialize)]
 pub struct Dependencies {
     #[serde(rename = "ohos-node-bindgen")]
-    node_bindgen: Option<Dependency>,
+    ohos_node_bindgen: Option<Dependency>,
 }
 
 #[derive(Debug, Clone, Deserialize, Serialize)]
@@ -57,8 +57,8 @@ impl ProjectFiles {
 
         let mut file = File::create(&build_rs)?;
         file.write_all(
-            b"fn main() { 
-            node_bindgen::build::configure(); 
+        b"fn main() { 
+            ohos_node_bindgen::build::configure(); 
         }",
         )?;
 
@@ -75,11 +75,11 @@ impl ProjectFiles {
         }
 
         const LIB_RS: &str = r#"
-            use node_bindgen::derive::node_bindgen;
+            use ohos_node_bindgen::derive::node_bindgen;
             
             struct MyObject {}
 
-            #[node_bindgen]
+            #[ohos_node_bindgen]
             impl MyObject {
             
                 #[node_bindgen(constructor)]
@@ -114,14 +114,14 @@ impl ProjectFiles {
         });
 
         config.dependencies = Some(Dependencies {
-            node_bindgen: Some(Dependency {
+            ohos_node_bindgen: Some(Dependency {
                 version: version.clone(),
                 features: vec![],
             }),
         });
 
         config.build_dependencies = Some(Dependencies {
-            node_bindgen: Some(Dependency {
+            ohos_node_bindgen: Some(Dependency {
                 version,
                 features: vec!["build".to_string()],
             }),

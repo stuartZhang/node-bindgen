@@ -1,4 +1,4 @@
-use node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::derive::node_bindgen;
 
 /// name must be string
 #[node_bindgen(name=20)]

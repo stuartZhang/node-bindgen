@@ -59,27 +59,27 @@ fn generate_class_helper(class: Class) -> TokenStream {
         mod #helper_module_name {
 
             use std::ptr;
-            use node_bindgen::core::JSClass;
+            use ohos_node_bindgen::core::JSClass;
 
             use super::#type_name;
 
-            static mut CLASS_CONSTRUCTOR: node_bindgen::sys::napi_ref = ptr::null_mut();
+            static mut CLASS_CONSTRUCTOR: ohos_node_bindgen::sys::napi_ref = ptr::null_mut();
 
-            impl node_bindgen::core::JSClass for #impl_for_block {
+            impl ohos_node_bindgen::core::JSClass for #impl_for_block {
                 const CLASS_NAME: &'static str = #class_type_lit;
 
-                fn set_constructor(constructor: node_bindgen::sys::napi_ref) {
-                    node_bindgen::core::log::trace!("set constructor");
+                fn set_constructor(constructor: ohos_node_bindgen::sys::napi_ref) {
+                    ohos_node_bindgen::core::log::trace!("set constructor");
                     unsafe {
                         CLASS_CONSTRUCTOR = constructor;
                     }
                 }
 
-                fn get_constructor() -> node_bindgen::sys::napi_ref {
+                fn get_constructor() -> ohos_node_bindgen::sys::napi_ref {
                     unsafe { CLASS_CONSTRUCTOR }
                 }
 
-                fn properties() -> node_bindgen::core::PropertiesBuilder {
+                fn properties() -> ohos_node_bindgen::core::PropertiesBuilder {
 
                     vec![
                         #(#properties),*
@@ -92,19 +92,19 @@ fn generate_class_helper(class: Class) -> TokenStream {
 
             #class_arg_exp
 
-            use node_bindgen::core::submit_register_callback;
+            use ohos_node_bindgen::core::submit_register_callback;
 
 
-            #[node_bindgen::core::ctor]
+            #[ohos_node_bindgen::core::ctor]
             fn register_class() {
-                node_bindgen::core::log::debug!(class = stringify!(#type_name),"registering class");
+                ohos_node_bindgen::core::log::debug!(class = stringify!(#type_name),"registering class");
                 submit_register_callback(#type_name::js_init);
             }
         }
     }
 }
 
-/// find methods which are defined in node_bindgen annotation
+/// find methods which are defined in ohos_node_bindgen annotation
 fn generate_properties(class: &Class) -> Vec<TokenStream> {
     class
         .methods
@@ -120,15 +120,15 @@ fn generate_properties(class: &Class) -> Vec<TokenStream> {
 
                 Some(if method.attributes.is_getter() {
                     quote! {
-                        node_bindgen::core::Property::new(#property_name).getter(Self::#napi_name)
+                        ohos_node_bindgen::core::Property::new(#property_name).getter(Self::#napi_name)
                     }
                 } else if method.attributes.is_setter() {
                     quote! {
-                        node_bindgen::core::Property::new(#property_name).setter(Self::#napi_name)
+                        ohos_node_bindgen::core::Property::new(#property_name).setter(Self::#napi_name)
                     }
                 } else {
                     quote! {
-                        node_bindgen::core::Property::new(#property_name).method(Self::#napi_name)
+                        ohos_node_bindgen::core::Property::new(#property_name).method(Self::#napi_name)
                     }
                 })
             }

@@ -1,4 +1,4 @@
-use node_bindgen::derive::node_bindgen;
+use ohos_node_bindgen::derive::node_bindgen;
 
 
 
@@ -7,7 +7,7 @@ struct MyObject {
 }
 
 
-#[node_bindgen]
+#[ohos_node_bindgen]
 impl MyObject {
 
     #[node_bindgen(name=20)]

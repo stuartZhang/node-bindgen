@@ -69,7 +69,7 @@ pub fn generate_function(input_fn: ItemFn, attributes: FunctionAttributes) -> To
 ///
 ///
 /// Generate extract code like as below:
-///     let result: Result<node_bindgen::sys::napi_value, node_bindgen::core::NjError> =
+///     let result: Result<ohos_node_bindgen::sys::napi_value, ohos_node_bindgen::core::NjError> =
 ///         (move || {
 ///             let js_cb = js_env.get_cb_info(cb_info, 2)?;
 ///             let rust_value_0 = js_cb.get_value::<i32>(0)?;
@@ -97,8 +97,8 @@ pub fn generate_rust_invocation(ctx: &FnGeneratorCtx, cb_args: &mut CbArgs) -> T
         let async_name = format!("{}_ft", ctx.fn_name());
         let async_lit = LitStr::new(&async_name, Span::call_site());
         quote! {
-            node_bindgen::core::log::debug!("creating JSPromiseFuture");
-            (node_bindgen::core::JsPromiseFuture::new(
+            ohos_node_bindgen::core::log::debug!("creating JSPromiseFuture");
+            (ohos_node_bindgen::core::JsPromiseFuture::new(
                 #rust_invoke, #async_lit
             )).try_to_js(&js_env)
         }
@@ -110,7 +110,7 @@ pub fn generate_rust_invocation(ctx: &FnGeneratorCtx, cb_args: &mut CbArgs) -> T
 
     let receiver = if ctx.is_method() {
         quote! {
-            node_bindgen::core::log::debug!("unwrapping receiver for method");
+            ohos_node_bindgen::core::log::debug!("unwrapping receiver for method");
             let receiver = (js_cb.unwrap_mut::<Self>()?);
         }
     } else {
@@ -119,7 +119,7 @@ pub fn generate_rust_invocation(ctx: &FnGeneratorCtx, cb_args: &mut CbArgs) -> T
 
     quote! {
 
-        let result: Result<node_bindgen::sys::napi_value,node_bindgen::core::NjError> = ( move || {
+        let result: Result<ohos_node_bindgen::sys::napi_value, ohos_node_bindgen::core::NjError> = ( move || {
 
             #js_to_rust_values
 
@@ -160,7 +160,7 @@ mod arg_extraction {
 
         quote! {
 
-            node_bindgen::core::log::debug!(args = #js_count, "args count");
+            ohos_node_bindgen::core::log::debug!(args = #js_count, "args count");
             let mut js_cb = js_env.get_cb_info(cb_info, #js_count)?;
 
             #(#rust_args)*
@@ -385,28 +385,28 @@ mod closure {
             }
 
             extern "C" fn #arg_cb_complete(
-                env: node_bindgen::sys::napi_env,
-                js_cb: node_bindgen::sys::napi_value,
+                env: ohos_node_bindgen::sys::napi_env,
+                js_cb: ohos_node_bindgen::sys::napi_value,
                 _context: *mut ::std::os::raw::c_void,
                 data: *mut ::std::os::raw::c_void) {
 
                 if !env.is_null() {
 
-                    node_bindgen::core::log::debug!("async cb invoked");
-                    let js_env = node_bindgen::core::val::JsEnv::new(env);
-                    let result: Result<(), node_bindgen::core::NjError> = (move ||{
+                    ohos_node_bindgen::core::log::debug!("async cb invoked");
+                    let js_env = ohos_node_bindgen::core::val::JsEnv::new(env);
+                    let result: Result<(), ohos_node_bindgen::core::NjError> = (move ||{
                         let global = js_env.get_global()?;
                         let my_val: Box<#arg_struct_name> = unsafe { Box::from_raw(data as *mut #arg_struct_name) };
-                        node_bindgen::core::log::trace!("arg: {:#?}",my_val);
+                        ohos_node_bindgen::core::log::trace!("arg: {:#?}",my_val);
                         #(#js_complete_conversions)*
 
-                        node_bindgen::core::log::debug!("async cb, invoking js cb");
+                        ohos_node_bindgen::core::log::debug!("async cb, invoking js cb");
                         js_env.call_function(global,js_cb,vec![#(#js_call),*])?;
-                        node_bindgen::core::log::trace!("async cb, done");
+                        ohos_node_bindgen::core::log::trace!("async cb, done");
                         Ok(())
                     })();
 
-                    node_bindgen::core::assert_napi!(result)
+                    ohos_node_bindgen::core::assert_napi!(result)
                 }
             }
 
@@ -431,7 +431,7 @@ mod closure {
                 #(#args),*
             };
 
-            node_bindgen::core::log::trace!("converting rust to raw ptr");
+            ohos_node_bindgen::core::log::trace!("converting rust to raw ptr");
             let my_box = Box::new(arg);
             let ptr = Box::into_raw(my_box);
 

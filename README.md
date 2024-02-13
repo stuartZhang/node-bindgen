@@ -1,5 +1,5 @@
 
-<h1 align="center">node-bindgen</h1>
+<h1 align="center">ohos-node-bindgen</h1>
 <div align="center">
  <strong>
    Easy way to write native Node.js module using idiomatic Rust
@@ -36,6 +36,67 @@
   </a>
 </div>
 
+## 兼容华为鸿蒙`ArkTS N-API`
+
+### 如何实现兼容
+
+在原作者伟大作品的基础上，我做了三项工作使`node-bindgen`支持华为鸿蒙`ArkTS N-API`开发
+
+1. 将原封装了[nodejs N-API](https://nodejs.org/dist/latest/docs/api/addons.html)的内部子工程`nj-sys`·替换为·包装了【鸿蒙`ArkTS N-API`】的外部依赖项[oh-napi-sys](https://gitee.com/zr233/oh-napi)。
+   1. 一方面，`node-bindgen`原作者的代码设计非常科学合理，所以对核心模块`*-sys crate`的替换工作很省心。
+   2. 另一方面，【鸿蒙`ArkTS N-API`】与`nodejs N-API`的相似度极高。所以，模块替换后的适配工作量少之又少。
+2. 添加【编译条件】 — 这算是一处适配点
+   1. 原因：【`C`无符号长整·数据类型`unsigned long`】在鸿蒙`armv7`架构上是`32bit`，而在鸿蒙`aarch64`与`x86_64`架构上却是`64bit`。所以，若既不搞【条件编译】又不预备多套代码，那么`rustc`就会交叉编译失败。感谢`Rust`的【条件编译】语言支持，让`Cpp`开发都哭去吧！
+   2. 打广告了：在该基建之上做鸿蒙`ArkTS NAPI`开发的中国同胞们就不用再分心考虑这类【架构差异】的技术细节了。这些破事实在太糟心！
+3. 修改包名从`node-bindgen`至`ohos-node-bindgen`。
+
+就目前而言，【鸿蒙`ArkTS N-API`】与`nodejs N-API`大约是`95%`相似。但是，我相信随着【鸿蒙操作系统】的后续发展，`ArkTS N-API`会引入越来越多与外国同类产品（比如，`nodejs / Deno`）不同的内容。
+
+### `ohos-node-bindgen`用法
+
+新/旧用法差异不在代码调用，而全部集中于`Cargo.toml`工程配置中
+
+1. 不再需要向`[build-dependencies]`配置表添加`node-bindgen = { version = "6.0", default-features = false, features = ["build"] }`依赖项，因为【编译时链接】已被完全委托给外部依赖项[oh-napi-sys](https://gitee.com/zr233/oh-napi)完成了。
+2. 输出链接库的编码格式不再是`cdylib`，而是`dylib`。即，
+
+    ```toml
+    [lib]
+    crate-type = ["dylib"]
+    ```
+
+### `ohos-node-bindgen`还不能被直接使用
+
+起因是`ohos-node-bindgen`的间接依赖项`socket2 v0.4.10`不兼容【华为鸿蒙操作系统】（— 别急，有得解）。依赖图如下
+
+```shell
+socket2 v0.4.10
+├── async-io v1.13.0
+│   ├── async-std v1.12.0
+│   │   └── fluvio-future v0.6.2
+│   │       └── nj-core v6.0.1
+│   │           └── ohos-node-bindgen v6.0.2
+```
+
+虽然依赖“血缘”关系隔了**四层**之远，但它仍会阻塞交叉编译。我亲测的解决方案：
+
+1. 【我已做，大家不用做】我已经`fork`了[socket2@0.4.x](https://github.com/rust-lang/socket2/tree/v0.4.x)分支，并解了其对【华为鸿蒙操作系统】的兼容缺陷。所以，
+2. 大家直接克隆我的[`fork`版本](https://github.com/stuartZhang/socket2/tree/v0.4.x)至本地硬盘，和切分支至`v0.4.x`
+
+    ```shell
+    git clone git@github.com:stuartZhang/socket2.git
+    git checkout v0.4.x
+    ```
+
+3. 重写（`Override`）调用端工程的【依赖图】，以指示`Cargo`优先加载本地的`socket2:0.4.10`依赖项，而不是从`crates.io`下载。即，向`Cargo.toml`文件增补如下配置表
+
+    ```toml
+    [dependencies]
+    socket2 = "0.4.10"
+    [patch.crates-io]
+    socket2 = { path = "<指向 socket2 本地克隆复本的完整路径>" }
+    ```
+
+然后，就能绕过线上的残次`socket2 crate`和成功交叉编译了。
 
 ## Features
 
@@ -51,11 +112,10 @@
 This project uses the v8 of Node N-API.  Please see following [compatibility](https://nodejs.org/api/n-api.html#n_api_n_api_version_matrix) matrix.
 
 Following OS are supported:
+
 * Linux
 * MacOs
 * Windows
-
-
 
 # Why node-bindgen?
 
@@ -84,16 +144,10 @@ Add ```node-bindgen``` as a regular dependency (as below):
 node-bindgen = { version = "6.0" }
 ```
 
-Then add ```node-bindgen```'s procedure macro to your build-dependencies as below:
-```
-[build-dependencies]
-node-bindgen = { version = "6.0", default-features = false, features = ["build"] }
-```
-
-Then update crate type to ```cdylib``` to generate node.js compatible native module:
+Then update crate type to ```dylib``` to generate node.js compatible native module:
 ```
 [lib]
-crate-type = ["cdylib"]
+crate-type = ["dylib"]
 ```
 
 Finally, add ```build.rs``` at the top of the project with following content:

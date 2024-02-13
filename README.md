@@ -424,22 +424,6 @@ assert.equal(obj.plusOne(),11);
 
 There are more features in the examples folder.
 
-## Windows + Electron Support
-When using node-bindgen with electron on Windows, `nj-build` must
-compile a C++ file, `win_delay_load_hook.cc`, and therefore it is required that the development
-environment has a valid C/C++ compiler.
-
-> If your machine does not have a valid C/C++ compiler, install [Microsoft VSCode](https://code.visualstudio.com/docs/cpp/config-mingw).
-
-In the future, this file will be re-written in Rust, removing this dependency.
-
-Just make sure that you are compiling the rust module using
-```
-$ npx electron-build-env nj-cli build --release
-```
-
-otherwise you will get dreaded  `A dynamic link library (DLL) initialization routine failed` when importing the rust module in electron
-
 ## Preparing npm packages
 
 Node module generated with `node-bindgen` can be used directly in any node JS project, just copied `index.node` into it. But in case of direct access to a module IDE will not highlight available functions, classes etc. Usually, this is not comfortable and makes the risks of potential bugs higher as soon as the public API of the node module is changed.

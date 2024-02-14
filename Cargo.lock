@@ -898,7 +898,7 @@ dependencies = [
 
 [[package]]
 name = "ohos-node-bindgen"
-version = "6.0.2"
+version = "6.0.3"
 dependencies = [
  "oh-napi-sys",
  "ohos-nj-core",

@@ -84,7 +84,7 @@ socket2 v0.4.10
 
     ```shell
     git clone git@github.com:stuartZhang/socket2.git
-    git checkout v0.4.x
+    git checkout -q v0.4.x
     ```
 
 3. 重写（`Override`）调用端工程的【依赖图】，以指示`Cargo`优先加载本地的`socket2:0.4.10`依赖项，而不是从`crates.io`下载。即，向`Cargo.toml`文件增补如下配置表

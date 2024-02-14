@@ -1,5 +1,5 @@
 [package]
-name = "nj-derive"
+name = "ohos-nj-derive"
 version = "3.4.2"
 authors = ["Stuart Zhang <stuartpage@qq.com>"]
 edition = "2018"

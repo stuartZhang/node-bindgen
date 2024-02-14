@@ -1,6 +1,6 @@
 [package]
 name = "ohos-node-bindgen"
-version = "6.0.2"
+version = "6.0.3"
 authors = ["Stuart Zhang <stuartpage@qq.com>"]
 edition = "2021"
 description = "easy way to write nodejs module using rust"

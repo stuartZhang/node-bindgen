@@ -57,7 +57,7 @@
 新/旧用法差异不在代码调用，而全部集中于`Cargo.toml`工程配置中
 
 1. 不再需要向`[build-dependencies]`配置表添加`node-bindgen = { version = "6.0", default-features = false, features = ["build"] }`依赖项了，因为【编译时链接】已完全委托给外部依赖项[oh-napi-sys](https://gitee.com/zr233/oh-napi)完成了。
-2. 输出链接库的编码格式不再是`cdylib`，而是`dylib`。即，
+2. 输出链接库的`ABI`格式不再是`cdylib`，而是`dylib` — 有那么点反直觉。即，
 
     ```toml
     [lib]
@@ -84,10 +84,11 @@ socket2 v0.4.10
 
     ```shell
     git clone git@github.com:stuartZhang/socket2.git
+    cd socket2
     git checkout -q v0.4.x
     ```
 
-3. 重写（`Override`）调用端工程的【依赖图】，以指示`Cargo`优先加载本地的`socket2:0.4.10`依赖项，而不是从`crates.io`下载。即，向`Cargo.toml`文件增补如下配置表
+3. 局部重写（`Override`）调用端工程的【依赖图】，以指示`Cargo`优先加载本地的`socket2:0.4.10`依赖项，而不是从`crates.io`下载。即，向`Cargo.toml`文件增补如下配置表
 
     ```toml
     [dependencies]

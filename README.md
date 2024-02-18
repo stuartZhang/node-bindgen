@@ -54,15 +54,7 @@
 
 ### `ohos-node-bindgen`用法
 
-新/旧用法差异不在代码调用，而全部集中于`Cargo.toml`工程配置中
-
-1. 不再需要向`[build-dependencies]`配置表添加`node-bindgen = { version = "6.0", default-features = false, features = ["build"] }`依赖项了，因为【编译时链接】已完全委托给外部依赖项[oh-napi-sys](https://gitee.com/zr233/oh-napi)完成了。
-2. 输出链接库的`ABI`格式不再是`cdylib`，而是`dylib` — 有那么点反直觉。即，
-
-    ```toml
-    [lib]
-    crate-type = ["dylib"]
-    ```
+新/旧用法差异不在代码调用，而全部集中于`Cargo.toml`工程配置中。即，不再需要向`[build-dependencies]`配置表添加`node-bindgen = { version = "6.0", default-features = false, features = ["build"] }`依赖项了，因为【编译时链接】已完全委托给外部依赖项[oh-napi-sys](https://gitee.com/zr233/oh-napi)完成了。
 
 ### `ohos-node-bindgen`还不能被直接使用
 
